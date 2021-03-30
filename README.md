@@ -7,3 +7,5 @@ Consiste en un archivo cliente.py que recibirá la información de la web y la p
 Este proyecto ha sido desarrollado utilizando [PyCharm](https://www.jetbrains.com/pycharm/) creando un entorno virtual con Python2.7, Apache Thrift y Django.
 
 Puedes ejecutar el proyecto descarganzo el zip del repositorio, abriéndolo con PyCharm. 
+
+Estado del Proyecto: En Producción 🔧
