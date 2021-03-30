@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="icon" type="image/png" href="assets/logo.png">-->
+    <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <title>Práctica Apache Thrift - Calculadora</title>
+</head>
+<body>
+    <header>
+        <h1>Prácticas DSD - Apache Thrift</h1>
+        <h2>Autor: Miguel Ángel Benítez Alguacil</h2>
+    </header>
+    <main>
+        <section class="calculadora center">
+            <section id="marca-pantalla">
+                <div id="marca">
+                    <h2>TOPACHIO</h2>
+                    <p>fx-82MS</p>
+                </div>
+                <div id="pantalla">
+                    <p>29x5</p>
+                    <p id="resultado">145</p>
+                </div>
+            </section>
+            <section id="modo">
+                <input type="button" value="MODO" class="boton modo">
+                <div class="selector">
+                    <div class="row">
+                        <input type="button" value="&#9651" id="up" class="boton">
+                    </div>
+                    <div class="row">
+                        <input type="button" value="&#9665" id="left" class="boton">
+                        <input type="button" value="&#9655" id="right" class="boton">
+                    </div>
+                    <div class="row">
+                        <input type="button" value="&#9661" id="down" class="boton">
+                    </div>
+                </div>
+                <input type="button" value="ON" class="boton modo">
+            </section>
+            <section id="op-basicas">
+                <div class="row">
+                    <input type="button" value="(" class="boton">
+                    <input type="button" value=")" class="boton">
+                    <input type="button" value="!" class="boton">
+                    <input type="button" value="sin&sup1;" class="boton">
+                    <input type="button" value="cos&sup1;" class="boton">
+                    <input type="button" value="tan&sup1;" class="boton">
+                </div>
+                <div class="row">
+                    <input type="button" value="x&#178" class="boton">
+                    <input type="button" value="^" class="boton">
+                    <input type="button" value="&radic;" class="boton">
+                    <input type="button" value="sin" class="boton">
+                    <input type="button" value="cos" class="boton">
+                    <input type="button" value="tan" class="boton">
+                </div>
+            </section>
+            <section id="comun">
+                <div class="row">
+                    <input type="button" value="7" class="boton">
+                    <input type="button" value="8" class="boton">
+                    <input type="button" value="9" class="boton">
+                    <input type="button" value="DEL" class="boton borrar">
+                    <input type="button" value="AC" class="boton borrar">
+                </div>
+                <div class="row">
+                    <input type="button" value="4" class="boton">
+                    <input type="button" value="5" class="boton">
+                    <input type="button" value="6" class="boton">
+                    <input type="button" value="x" class="boton">
+                    <input type="button" value="&divide;" class="boton">
+                </div>
+                <div class="row">
+                    <input type="button" value="1" class="boton">
+                    <input type="button" value="2" class="boton">
+                    <input type="button" value="3" class="boton">
+                    <input type="button" value="+" class="boton">
+                    <input type="button" value="&minus;" class="boton">
+                </div>
+                <div class="row">
+                    <input type="button" value="0" class="boton">
+                    <input type="button" value="." class="boton">
+                    <input type="button" value="%" class="boton">
+                    <input type="submit" id="signo-igual" value="=" class="boton">
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer>
+        <section id="explicacion">
+            <h2>Cliente realizado en HTML, CSS y JavaScript</h2>
+            <h2>Servidor realizado en Python</h2>
+        </section>
+    </footer>
+</body>
+</html>

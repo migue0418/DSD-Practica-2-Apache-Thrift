@@ -1,0 +1,189 @@
+/******Colores*******/
+:root {
+    --calculadora: #495F7A;
+    --teclas-rojo: #ff766f;
+    --teclas-gris: #bac3ce;
+    --teclas-dark: #2F2E2D;
+    --font-casio: #E4ECF5;
+    --font-teclas: #E4ECF5;
+    --resultado: rgb(119, 134, 125);
+    --fondo: #21242B;
+}
+
+@font-face {
+    font-family: 'Scientific Calculator';
+    src: url(../font/Scientific_Calculator_LCD.ttf);
+}
+
+body {
+    margin: 40px 20px;
+    display: block;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Montserrat';
+    background-color: var(--fondo);
+}
+
+
+/******Header*******/
+h1 {
+    line-height: 1.75em;
+    color: var(--font-casio)
+}
+
+h2 {
+    color: var(--teclas-gris);
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+/******Calculadora*******/
+.calculadora {
+    border-radius: 20px;
+    background-color: var(--calculadora);
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 15px;
+    font-family: 'Squada One';
+}
+
+section {
+    margin: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+section#marca-pantalla {
+    display: block;
+    text-align: left;
+}
+
+#marca {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--font-casio);
+}
+
+#marca h2 {
+    font-weight: 550;
+    font-size: 24px;
+    margin-block: 10px;
+}
+
+section#marca-pantalla #pantalla{
+    font-family: 'Scientific Calculator';
+    background-color: var(--resultado);
+    text-align: left;
+    font-size: 0.8rem;
+    height: 80px;
+    width: inherit;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#resultado {
+    text-align: right;
+    font-size: 1rem;
+}
+
+/******Modo******/
+section#modo {
+    align-items: center;
+    justify-content: space-between;
+}
+
+section#modo .modo{
+    border-radius: 20px;
+    font-size: 13px;
+    width: 60px;
+    background-color: var(--teclas-rojo);
+}
+
+.boton {
+    border-radius: 5px;
+    width: 100%;
+}
+
+section#modo .selector .row{
+    width: 100px;
+    justify-content: space-around;
+}
+
+section#modo .selector .boton {
+    display: block;
+    justify-content: center;
+    width: auto;
+}
+
+input {
+    display: block;
+    margin: 2px;
+    outline:none;
+    color: var(--teclas-dark);
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
+
+/******Operaciones Básicas******/
+section#op-basicas {
+    display: block;
+}
+
+section#op-basicas input {
+    background-color: var(--teclas-dark);
+    max-width: 15%;
+    min-width: 15%;
+    color: var(--font-teclas);
+    font-weight: 440;
+    font-size: 0.7rem;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+
+#comun {
+    display: block;
+}
+
+#comun input{
+    background-color: var(--teclas-gris);
+    width: 18%;
+    border-radius: 5px 5px 8px 8px;
+}
+
+#comun input.borrar{
+    font-size: 12px;
+    background-color: var(--teclas-rojo);
+}
+
+#comun #signo-igual{
+    width: 38%;
+}
+
+.columna{
+    display: block;
+    margin-left: 2px;
+    width: 100%;
+}
+
+.mitad { height: 50%; }
+
+.submit { height:max-content; }
+
+/******Footer******/
+footer {
+    display: flex;
+    justify-content: center;
+}
+footer section{
+    display: block;
+    text-align: left;
+}
