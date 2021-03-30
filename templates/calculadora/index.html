@@ -8,6 +8,7 @@
     <!--<link rel="icon" type="image/png" href="assets/logo.png">-->
     <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/javascript.js' %}"></script>
     <title>Práctica Apache Thrift - Calculadora</title>
 </head>
 <body>
@@ -16,81 +17,83 @@
         <h2>Autor: Miguel Ángel Benítez Alguacil</h2>
     </header>
     <main>
-        <section class="calculadora center">
-            <section id="marca-pantalla">
-                <div id="marca">
-                    <h2>TOPACHIO</h2>
-                    <p>fx-82MS</p>
-                </div>
-                <div id="pantalla">
-                    <p>29x5</p>
-                    <p id="resultado">145</p>
-                </div>
-            </section>
-            <section id="modo">
-                <input type="button" value="MODO" class="boton modo">
-                <div class="selector">
+        <form action="" method="post">
+            <section class="calculadora center">
+                <section id="marca-pantalla">
+                    <div id="marca">
+                        <h2>TOPACHIO</h2>
+                        <p>fx-82MS</p>
+                    </div>
+                    <div id="pantalla">
+                        <input type="text" id="expresion" name="expresion" class="expresion" value="" readonly>
+                        <p id="resultado">{{ resultado }}</p>
+                    </div>
+                </section>
+                <section id="modo">
+                    <input type="button" value="MODO" class="boton modo">
+                    <div class="selector">
+                        <div class="row">
+                            <input type="button" value="&#9651" id="up" class="boton">
+                        </div>
+                        <div class="row">
+                            <input type="button" value="&#9665" id="left" class="boton">
+                            <input type="button" value="&#9655" id="right" class="boton">
+                        </div>
+                        <div class="row">
+                            <input type="button" value="&#9661" id="down" class="boton">
+                        </div>
+                    </div>
+                    <input type="button" value="ON" class="boton modo">
+                </section>
+                <section id="op-basicas">
                     <div class="row">
-                        <input type="button" value="&#9651" id="up" class="boton">
+                        <input type="button" value="(" class="boton" onclick="addElement('(')">
+                        <input type="button" value=")" class="boton" onclick="addElement(')')">
+                        <input type="button" value="!" class="boton" onclick="addElement('!')">
+                        <input type="button" value="sin&sup1;" class="boton" onclick="addElement('sin&sup1;')">
+                        <input type="button" value="cos&sup1;" class="boton" onclick="addElement('cos&sup1;')">
+                        <input type="button" value="tan&sup1;" class="boton" onclick="addElement('tan&sup1;')">
                     </div>
                     <div class="row">
-                        <input type="button" value="&#9665" id="left" class="boton">
-                        <input type="button" value="&#9655" id="right" class="boton">
+                        <input type="button" value="x&#178" class="boton" onclick="addElement('^2')">
+                        <input type="button" value="^" class="boton" onclick="addElement('^')">
+                        <input type="button" value="&radic;" class="boton" onclick="addElement('&radic;')">
+                        <input type="button" value="sin" class="boton" onclick="addElement('sin')">
+                        <input type="button" value="cos" class="boton" onclick="addElement('cos')">
+                        <input type="button" value="tan" class="boton" onclick="addElement('tan')">
+                    </div>
+                </section>
+                <section id="comun">
+                    <div class="row">
+                        <input type="button" value="7" class="boton" onclick="addElement(7)">
+                        <input type="button" value="8" class="boton" onclick="addElement(8)">
+                        <input type="button" value="9" class="boton" onclick="addElement(9)">
+                        <input type="button" value="DEL" class="boton borrar" onclick="popElement()">
+                        <input type="button" value="AC" class="boton borrar" onclick="erase()">
                     </div>
                     <div class="row">
-                        <input type="button" value="&#9661" id="down" class="boton">
+                        <input type="button" value="4" class="boton" onclick="addElement(4)">
+                        <input type="button" value="5" class="boton" onclick="addElement(5)">
+                        <input type="button" value="6" class="boton" onclick="addElement(6)">
+                        <input type="button" value="x" class="boton" onclick="addElement('x')">
+                        <input type="button" value="&divide;" class="boton" onclick="addElement('/')">
                     </div>
-                </div>
-                <input type="button" value="ON" class="boton modo">
+                    <div class="row">
+                        <input type="button" value="1" class="boton" onclick="addElement(1)">
+                        <input type="button" value="2" class="boton" onclick="addElement(2)">
+                        <input type="button" value="3" class="boton" onclick="addElement(3)">
+                        <input type="button" value="+" class="boton" onclick="addElement('+')">
+                        <input type="button" value="&minus;" class="boton" onclick="addElement('-')">
+                    </div>
+                    <div class="row">
+                        <input type="button" value="0" class="boton" onclick="addElement(0)">
+                        <input type="button" value="." class="boton" onclick="addElement('.')">
+                        <input type="button" value="%" class="boton" onclick="addElement('%')">
+                        <input type="submit" id="signo-igual" value="=" class="boton">
+                    </div>
+                </section>
             </section>
-            <section id="op-basicas">
-                <div class="row">
-                    <input type="button" value="(" class="boton">
-                    <input type="button" value=")" class="boton">
-                    <input type="button" value="!" class="boton">
-                    <input type="button" value="sin&sup1;" class="boton">
-                    <input type="button" value="cos&sup1;" class="boton">
-                    <input type="button" value="tan&sup1;" class="boton">
-                </div>
-                <div class="row">
-                    <input type="button" value="x&#178" class="boton">
-                    <input type="button" value="^" class="boton">
-                    <input type="button" value="&radic;" class="boton">
-                    <input type="button" value="sin" class="boton">
-                    <input type="button" value="cos" class="boton">
-                    <input type="button" value="tan" class="boton">
-                </div>
-            </section>
-            <section id="comun">
-                <div class="row">
-                    <input type="button" value="7" class="boton">
-                    <input type="button" value="8" class="boton">
-                    <input type="button" value="9" class="boton">
-                    <input type="button" value="DEL" class="boton borrar">
-                    <input type="button" value="AC" class="boton borrar">
-                </div>
-                <div class="row">
-                    <input type="button" value="4" class="boton">
-                    <input type="button" value="5" class="boton">
-                    <input type="button" value="6" class="boton">
-                    <input type="button" value="x" class="boton">
-                    <input type="button" value="&divide;" class="boton">
-                </div>
-                <div class="row">
-                    <input type="button" value="1" class="boton">
-                    <input type="button" value="2" class="boton">
-                    <input type="button" value="3" class="boton">
-                    <input type="button" value="+" class="boton">
-                    <input type="button" value="&minus;" class="boton">
-                </div>
-                <div class="row">
-                    <input type="button" value="0" class="boton">
-                    <input type="button" value="." class="boton">
-                    <input type="button" value="%" class="boton">
-                    <input type="submit" id="signo-igual" value="=" class="boton">
-                </div>
-            </section>
-        </section>
+        </form>
     </main>
     <footer>
         <section id="explicacion">
