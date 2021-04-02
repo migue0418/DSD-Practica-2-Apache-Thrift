@@ -90,6 +90,8 @@ section#marca-pantalla input.expresion {
     border: none;
     font-family: 'Scientific Calculator';
     width: 180px;
+    text-overflow: ellipsis;
+    text-align: left;
 }
 
 #resultado {
