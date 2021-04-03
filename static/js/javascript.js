@@ -22,4 +22,5 @@ function popElement() {
 
 function erase() {
     document.getElementById("expresion").value = "";
+    document.getElementById("resultado").value = "";
 }

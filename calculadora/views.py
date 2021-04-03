@@ -10,12 +10,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def index(request):
     if request.method == 'POST':
-        #info = cliente.main(request.POST['expresion'])
         info = {
             'expresion': request.POST['expresion'],
             'resultado': 0.0,
             'error': ''
         }
+        cliente.main(info)
     else:
         info = {
             'expresion': '',

@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from calculadora import Calculadora
 
 from thrift.transport import TSocket
@@ -8,37 +8,48 @@ from thrift.protocol import TBinaryProtocol
 import re
 
 
-def procesa_expresion(expresion):
-    result = 0.0
+def procesa_expresion(info):
+    info['resultado'] = 0.0
+    print(info['expresion'])
 
-    cadena = is_expresion_valida(expresion)
-    print("La expresión ha sido procesada y es válida:")
-    for i in cadena:
-        print(i),
+    if not is_expresion_valida(info):
+        print(info['error'])
+        return False
+    else:
+        print("La expresión ha sido procesada y es válida:")
 
-    print("\nEl resultado de procesar la expresión es: " + str(result))
-    return result
+    print("\nEl resultado de procesar la expresión es: " + str(info['resultado']))
+    return True
 
 
-def is_expresion_valida(expresion):
+def is_expresion_valida(info):
+    expresion = info['expresion']
+    print(expresion)
     cadena = limpiar_cadena(expresion)
+    print(cadena)
     num_paren = 0
     numero = False
     regex_num = re.compile('(\d+\.?\d*)')
-    regex_dos_puntos = re.compile('(\d+\.+\d*\.+\d*)|(\.+\d*)')
 
     # Revisar la primera posición
     i = 0
     if cadena[i] == 'x' or cadena[i] == '/' or cadena[i] == '^' or cadena[i] == '+' or cadena[i] == '!':
-        print("ERROR! La expresión no puede empezar por +, x, /, ^ o !")
-        exit(1)
+        info['error'] = 'ERROR! La expresión no puede empezar por +, x, /, ^ o !'
+        return False
 
     # Revisar la última posición
     i = len(cadena) - 1
-    if cadena[i] == '+' or cadena[i] == '-' or cadena[i] == 'x' or cadena[i] == '/' or cadena[i] == '^' or cadena[i] == 'r' or cadena[i] == '(':
-        print("ERROR! La expresión debe acabar en !, ) o en un número")
-        exit(1)
+    if cadena[i] == ')':
+        num_paren -= 1
+    elif cadena[i] == '(':
+        num_paren += 1
+        info['error'] = 'ERROR! Los paréntesis no son correctos'
+        return False
+    elif not re.match(regex_num, cadena[i]) and cadena[i] != '!':
+        info['error'] = 'ERROR! La expresión debe acabar en !, ) o en un número'
+        return False
 
+    # Revisar el resto
     i = 0
     while i < (len(cadena) - 1):
         # Si es un valor numérico
@@ -46,11 +57,12 @@ def is_expresion_valida(expresion):
             try:
                 float(cadena[i])
             except:
-                print("ERROR! Uso inadecuado de \'.\'")
-                exit(1)
+                info['error'] = 'ERROR! Uso inadecuado de .'
+                return False
+
             if numero:
-                print("Error! No puede haber dos números seguidos")
-                exit(1)
+                info['error'] = 'ERROR! No puede haber dos números seguidos'
+                return False
             else:
                 numero = True
         # Valor no numérico
@@ -60,45 +72,45 @@ def is_expresion_valida(expresion):
             elif cadena[i] == ')':
                 num_paren -= 1
                 if num_paren < 0:
-                    print("ERROR! Los paréntesis no son correctos")
-                    exit(1)
+                    info['error'] = 'ERROR! Los paréntesis no son correctos'
+                    return False
                 elif re.match(regex_num, cadena[i+1]):
-                    print("ERROR! Después de un ) no puede ir un número")
-                    exit(1)
-                elif cadena[i+1] == '√' or cadena[i+1] == 'sin' or cadena[i+1] == 'sin¹' or cadena[i+1] == 'cos' or cadena[i+1] == 'cos¹' or cadena[i+1] == 'tan' or cadena[i+1] == 'tan¹':
-                    print("ERROR! Después de un ) no puede ir √, cos, tan o sin")
-            elif cadena[i] == '√' or cadena[i] == 'sin' or cadena[i] == 'sin¹' or cadena[i] == 'cos' or cadena[i] == 'cos¹' or cadena[i] == 'tan' or cadena[i] == 'tan¹':
+                    info['error'] = 'ERROR! Después de un ) no puede ir un número'
+                    return False
+                elif cadena[i+1] == u'√' or cadena[i+1] == 'sin' or cadena[i+1] == 'sin¹' or cadena[i+1] == 'cos' or cadena[i+1] == 'cos¹' or cadena[i+1] == 'tan' or cadena[i+1] == 'tan¹':
+                    info['error'] = 'ERROR! Después de un ) no puede ir √, cos, tan o sin'
+            elif cadena[i] == u'√' or cadena[i] == 'sin' or cadena[i] == u'sin¹' or cadena[i] == 'cos' or cadena[i] == u'cos¹' or cadena[i] == 'tan' or cadena[i] == u'tan¹':
                 if cadena[i+1] == '!' or cadena[i+1] == 'x' or cadena[i+1] == '/' or cadena[i+1] == '+' or cadena[i+1] == '-' or cadena[i+1] == '^' or cadena[i+1] == ')':
-                    print("ERROR! Después de una √, cos, sin o tan no puede ir +, -, x, /, !, ) o ^")
-                    exit(1)
+                    info['error'] = 'ERROR! Después de una √, cos, sin o tan no puede ir +, -, x, /, !, ) o ^'
+                    return False
             elif cadena[i] == '!':
                 if cadena[i+1] != '+' and cadena[i+1] != '-' and cadena[i+1] != 'x' and cadena[i+1] != '/' and cadena[i+1] != '^' and cadena[i+1] != '!' and cadena[i+1] != ')':
-                    print("ERROR! Después de un factorial va un operador distinto a √, sin, cos, tan o (")
-                    exit(1)
+                    info['error'] = 'ERROR! Después de un factorial va un operador distinto a √, sin, cos, tan o ('
+                    return False
             elif cadena[i].find('.') != -1:
                 try:
                     float(cadena[i])
                 except:
-                    print("ERROR! Uso inadecuado de \'.\'")
-                    exit(1)
+                    info['error'] = 'ERROR! Uso inadecuado de \'.\''
+                    return False
             elif cadena[i] == '+' or cadena[i] == '-' or cadena[i] == 'x' or cadena[i] == '/' or cadena[i] == '^':
                 if cadena[i+1] == '+' or cadena[i+1] == '-' or cadena[i+1] == 'x' or cadena[i+1] == '/' or cadena[i+1] == '^':
-                    print("ERROR! Después de +, -, /, x o ^ no puede ir +, -, /, x o ^")
-                    exit(1)
+                    info['error'] = 'ERROR! Después de +, -, /, x o ^ no puede ir +, -, /, x o ^'
+                    return False
             numero = False
         i += 1
 
     if num_paren != 0:
-        print("ERROR! Los paréntesis no son correctos")
-        exit(1)
+        info['error'] = 'ERROR! Los paréntesis no son correctos'
+        return False
 
-    return cadena
+    return True
 
 
 def limpiar_cadena(expresion):
     limpia = []
     cadena_limpia = []
-    regex_num = re.compile('(\d+\.?\d*)')
+    numero = re.compile('(\d+\.?\d*)')
     # Separa la expresión y la convierte en una lista
     separado = re.split('(\d+\.?\d*\.?\d*)|(sin¹?|cos¹?|tan¹?)|(\(|\)|\√|\!|\^|\/|\+|\-|x)', expresion)
 
@@ -109,25 +121,34 @@ def limpiar_cadena(expresion):
 
     # Poner los números negativos correctamente
     i = 0
-    while i < len(limpia) - 2:
-        if limpia[i] != ')' and limpia[i] != '!' and not re.match(regex_num, limpia[i]):
-            if limpia[i+1] == '-':
-                cadena_limpia.append(limpia[i])
-                if re.match(regex_num, limpia[i+2]):
-                    print(limpia[i+2])
-                    cadena_limpia.append("-"+limpia[i+2])
-                    i += 2
-            else:
-                cadena_limpia.append(limpia[i])
-                if i == len(limpia)-3:
-                    cadena_limpia.append(limpia[i+1])
-                    cadena_limpia.append(limpia[i+2])
+
+    print("Va a limpiarla: ")
+    for j in limpia:
+        print(j)
+
+    i = 0
+    while i < len(limpia):
+        # Si encuentra un - y después un número, podría ser un número negativo, si lo encuentra el - en la última posición, no lo comprueba
+        if limpia[i] == '-' and i < len(limpia)-1 and re.match(numero, limpia[i+1]):
+            # Si lo encuentra al principio, es un número negativo
+            if i == 0:
+                cadena_limpia.append("-" + limpia[i+1])
+                i += 1
+            elif i < len(limpia) - 1:
+                # Antes del - no hay ni !, ) o número
+                if limpia[i-1] != ')' and limpia[i-1] != '!' and not re.match(numero, limpia[i-1]):
+                    cadena_limpia.append("-" + limpia[i + 1])
+                    i += 1
+                else:
+                    cadena_limpia.append(limpia[i])
+        # Si no hay - en esa posición y después un número no hay que comprobar nada
         else:
             cadena_limpia.append(limpia[i])
-            if i == len(limpia)-3:
-                cadena_limpia.append(limpia[i+1])
-                cadena_limpia.append(limpia[i+2])
         i += 1
+
+    print("Esta es la cadena que sale: ")
+    for i in cadena_limpia:
+        print(i)
 
     return cadena_limpia
 
@@ -144,11 +165,11 @@ def main(expresion):
     print("hacemos ping al server")
     client.ping()
 
-    info = procesa_expresion(expresion)
+    hayError = procesa_expresion(expresion)
 
     transport.close()
 
-    return info
+    return hayError
 
 
 if __name__ == "__main__":
