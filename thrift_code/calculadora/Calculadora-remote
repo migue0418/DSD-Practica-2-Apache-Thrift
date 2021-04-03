@@ -10,13 +10,10 @@
 import sys
 import pprint
 from urlparse import urlparse
-from thrift.transport import TTransport
 from thrift.transport import TSocket
 from thrift.transport import THttpClient
-from thrift.protocol import TBinaryProtocol
 
-from calculadora import Calculadora
-from calculadora.ttypes import *
+import Calculadora
 
 if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print ''

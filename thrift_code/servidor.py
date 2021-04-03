@@ -1,6 +1,3 @@
-import glob
-import sys
-
 from calculadora import Calculadora
 
 from thrift.transport import TSocket
@@ -37,7 +34,7 @@ class CalculadoraHandler:
         return n1 / n2
 
 
-if __name__ == "__main__":
+def main():
     handler = CalculadoraHandler()
     processor = Calculadora.Processor(handler)
     transport = TSocket.TServerSocket(host="127.0.0.1", port=9090)
@@ -49,3 +46,7 @@ if __name__ == "__main__":
     print("iniciando servidor...")
     server.serve()
     print("fin")
+
+
+if __name__ == "__main__":
+    main()

@@ -94,7 +94,7 @@ section#marca-pantalla input.expresion {
     text-align: left;
 }
 
-#resultado {
+section#marca-pantalla input.expresion#resultado {
     text-align: right;
     font-size: 1rem;
 }
@@ -188,11 +188,24 @@ section#op-basicas input {
 .submit { height:max-content; }
 
 /******Footer******/
-footer {
-    display: flex;
+footer{
+    text-align: center;
+}
+
+footer section#explicacion{
+    display: inline-block;
+    text-align: left;
     justify-content: center;
 }
-footer section{
+
+footer section#errores {
+    margin: 5px;
     display: block;
-    text-align: left;
+}
+
+footer section#errores p{
+    color: var(--teclas-rojo);
+    text-align: center;
+    font-family: 'Montserrat';
+    font-size: 1.2em;
 }

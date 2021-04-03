@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="icon" type="image/png" href="assets/logo.png">-->
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
     <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/javascript.js' %}"></script>
@@ -17,7 +17,8 @@
         <h2>Autor: Miguel Ángel Benítez Alguacil</h2>
     </header>
     <main>
-        <form action="" method="post">
+        <form action="calculate" method="post">
+            {% csrf_token %}
             <section class="calculadora center">
                 <section id="marca-pantalla">
                     <div id="marca">
@@ -25,8 +26,8 @@
                         <p>fx-82MS</p>
                     </div>
                     <div id="pantalla">
-                        <input type="text" id="expresion" name="expresion" class="expresion" value="" onfocus="this.value = this.value;" readonly>
-                        <p id="resultado">{{ resultado }}</p>
+                        <input type="text" id="expresion" name="expresion" class="expresion" value="{{ expresion }}">
+                        <p><input type="text" id="resultado" class="expresion" value="{{ resultado }}"></p>
                     </div>
                 </section>
                 <section id="modo">
@@ -88,7 +89,7 @@
                     <div class="row">
                         <input type="button" value="0" class="boton" onclick="addElement(0)">
                         <input type="button" value="." class="boton" onclick="addElement('.')">
-                        <input type="button" value="%" class="boton" onclick="addElement('%')">
+                        <input type="button" value="x10&#8319;" class="boton" onclick="addElement('x10^')">
                         <input type="submit" id="signo-igual" value="=" class="boton">
                     </div>
                 </section>
@@ -96,8 +97,11 @@
         </form>
     </main>
     <footer>
+        <section id="errores">
+            <p>{{ error }}</p>
+        </section>
         <section id="explicacion">
-            <h2>Cliente realizado en HTML, CSS y JavaScript</h2>
+            <h2>Cliente realizado en Django con HTML, CSS y JavaScript</h2>
             <h2>Servidor realizado en Python</h2>
         </section>
     </footer>
