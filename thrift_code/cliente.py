@@ -5,6 +5,8 @@ from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
+from math import *
+
 import re
 
 
@@ -19,6 +21,10 @@ def procesa_expresion(info, client):
         print("La expresión ha sido procesada y es válida:")
         print(info['cadena'])
         resolver_parentesis(info, -1, len(info['cadena']), client)
+        if len(info['cadena']) == 1:
+            info['resultado'] = info['cadena'][0]
+        else:
+            print("Error al poner el resultado")
 
     print("\nEl resultado de procesar la expresión es: " + str(info['resultado']))
     return True
@@ -159,11 +165,11 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
 
     # Raíces, Factoriales, Potencias y Trigonometría se resuelven primero
     i = pos_ini + 1
-
     while i < pos_fin:
         print("Posicion " + str(i))
         print(expresion[i])
         encontrado = False
+        num1 = num2 = None
         result = ''
         # Raíz
         if expresion[i] == 'r':
@@ -174,48 +180,47 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    # Raíz
-                    if expresion[i] == 'r':
-                        if(num1 < 0):
-                            info['Error'] = 'ERROR! No se puede hacer una raíz de un número negativo!'
-                            return False
-                        else:
-                            result = client.raiz(num1)
-                            if result or result == '':
-                                expresion[i] = str(result)
-                                expresion[cont] = ''
-                            else:
-                                return False
-                            print("El resultado de la raiz es ")
-                            print(expresion[i])
-
                 else:
                     cont += 1
+            if num1 >= 0 and num1 and num1 != '':
+                result = client.raiz(num1)
+                if result or result != '':
+                    expresion[i] = str(result)
+                    expresion[cont] = ''
+                else:
+                    print("Error al hacer la raiz")
+                    return False
+            else:
+                info['Error'] = 'ERROR! No se puede hacer una raíz de un número negativo!'
+                return False
+
         # sin, cos, tan
         elif expresion[i] == 'sin' or expresion[i] == 'cos' or expresion[i] == 'tan':
-            print("Ha encontrado sin, cos, tan")
             cont = i+1
             while cont < pos_fin and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    if expresion[i] == 'sin':
-                        result = client.sen(num1)
-                    elif expresion[i] == 'cos':
-                        result = client.cos(num1)
-                    elif expresion[i] == 'tan':
-                        result = client.tan(num1)
-
-                    if result or result == '':
-                        expresion[i] = str(result)
-                        expresion[cont] = ''
-                    else:
-                        print("ERROR al hacer el sin, cos, tan")
-                        return False
-                    print("El resultado de la raiz es ")
-                    print(expresion[i])
                 else:
                     cont += 1
+            if num1 and num1 != '':
+                if expresion[i] == 'sin':
+                    result = client.sen(num1)
+                elif expresion[i] == 'cos':
+                    result = client.cos(num1)
+                elif expresion[i] == 'tan':
+                    result = client.tan(num1)
+
+                if result or result != '':
+                    expresion[i] = str(result)
+                    expresion[cont] = ''
+                else:
+                    print("ERROR al hacer el sin, cos, tan")
+                    return False
+            else:
+                print("ERROR al hacer el sin, cos, tan")
+                return False
+
         # asin, acos, atan
         elif expresion[i] == 'asin' or expresion[i] == 'acos' or expresion[i] == 'atan':
             print("Ha encontrado asin, acos, atan")
@@ -224,37 +229,239 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
-                    if num1 <= 1 and num1 >= -1:
-                        if expresion[i] == 'asin':
-                            result = client.arc_sen(num1)
-                        elif expresion[i] == 'acos':
-                            result = client.arc_cos(num1)
-                        elif expresion[i] == 'atan':
-                            result = client.arc_tan(num1)
-
-                        if result or result == '':
-                            expresion[i] = str(result)
-                            expresion[cont] = ''
-                        else:
-                            print("ERROR al hacer el sin, cos, tan")
-                            return False
-                        print("El resultado del arco es ")
-                        print(expresion[i])
-                    else:
-                        info['error'] = 'ERROR! No se puede hacer un arco de número fuera de [-1, 1]'
                 else:
                     cont += 1
+            if num1 <= 1 and num1 >= -1 and num1 and num1 != '':
+                if expresion[i] == 'asin':
+                    result = client.arc_sen(num1)
+                elif expresion[i] == 'acos':
+                    result = client.arc_cos(num1)
+                elif expresion[i] == 'atan':
+                    result = client.arc_tan(num1)
+
+                if result or result != '':
+                    expresion[i] = str(result)
+                    expresion[cont] = ''
+                else:
+                    print("Error al hacer el asin, acos, atan")
+                    return False
+            else:
+                info['error'] = 'ERROR! No se puede hacer un arco de número fuera de [-1, 1]'
+                return False
+
+        # Factorial
+        elif expresion[i] == '!':
+            print("Ha encontrado factorial")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                else:
+                    cont -= 1
+            if num1 >= 0 and num1 and num1 != '':
+                result = client.factorial(num1)
+                if result or result != '':
+                    expresion[i] = str(result)
+                    expresion[cont] = ''
+                else:
+                    print("Error al hacer la potencia")
+                    return False
+            else:
+                info['Error'] = 'ERROR! No se puede hacer el factorial de un número negativo!'
+                return False
+        i += 1
+
+    # Potencia
+    i = pos_ini + 1
+    while i < pos_fin:
+        encontrado = False
+        num1 = num2 = None
+        if expresion[i] == '^':
+            print("Ha encontrado potencia")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                    print(num1)
+                    expresion[cont] = ''
+                else:
+                    cont -= 1
+            encontrado = False
+            cont = i + 1
+            while cont < pos_fin and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num2 = float(expresion[cont])
+                    print(num2)
+                    expresion[cont] = ''
+                else:
+                    cont += 1
+            if num1 and num2 and num1 != '' and num2 != '':
+                result = client.potencia(num1, num2)
+                if result or result != '':
+                    expresion[i] = str(result)
+                else:
+                    print("Error al hacer la potencia")
+                    return False
+            else:
+                print("Error al hacer la potencia")
+                return False
+        i += 1
+
+    # Multiplicación y División
+    i = pos_ini + 1
+    while i < pos_fin:
+        encontrado = False
+        num1 = num2 = None
+        if expresion[i] == 'x':
+            print("Ha encontrado multiplicacion")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                    print(num1)
+                    expresion[cont] = ''
+                else:
+                    cont -= 1
+            encontrado = False
+            cont = i + 1
+            while cont < pos_fin and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num2 = float(expresion[cont])
+                    print(num2)
+                    expresion[cont] = ''
+                else:
+                    cont += 1
+            if num1 and num2 and num1 != '' and num2 != '':
+                result = client.multiplicacion(num1, num2)
+                if result or result != '':
+                    expresion[i] = str(result)
+                else:
+                    print("Error al hacer la multiplicacion")
+                    return False
+            else:
+                print("Error al hacer la multiplicacion")
+                return False
+        elif expresion[i] == '/':
+            print("Ha encontrado division")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                    print(num1)
+                    expresion[cont] = ''
+                else:
+                    cont -= 1
+            encontrado = False
+            cont = i + 1
+            while cont < pos_fin and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num2 = float(expresion[cont])
+                    print(num2)
+                    expresion[cont] = ''
+                else:
+                    cont += 1
+            if num1 and num2 and num1 != '' and num2 != '':
+                if num2 != 0:
+                    result = client.division(num1, num2)
+                    if result or result != '':
+                        expresion[i] = str(result)
+                    else:
+                        print("Error al hacer la division")
+                        return False
+                else:
+                    info['Error'] = 'ERROR! No se puede dividir por 0!'
+                    return False
+            else:
+                print("Error al hacer la division")
+                return False
         i += 1
 
 
-    print(expresion)
-        #if  expresion[i] == 'sin' or expresion[i] == 'sin¹' or expresion[i] == 'cos' or expresion[i] == 'cos¹' or expresion[i] == 'tan' or expresion[i] == 'tan¹':
-    # Multiplicaciones y Divisiones
-
     # Sumas y Restas
-
-    # Limpiar info['expresion`] eliminamos los espacios vacíos
+    i = pos_ini + 1
+    while i < pos_fin:
+        encontrado = False
+        num1 = num2 = None
+        if expresion[i] == '+':
+            print("Ha encontrado suma")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                    print(num1)
+                    expresion[cont] = ''
+                else:
+                    cont -= 1
+            encontrado = False
+            cont = i + 1
+            while cont < pos_fin and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num2 = float(expresion[cont])
+                    print(num2)
+                    expresion[cont] = ''
+                else:
+                    cont += 1
+            if num1 and num2 and num1 != '' and num2 != '':
+                result = client.suma(num1, num2)
+                if result or result != '':
+                    expresion[i] = str(result)
+                else:
+                    print("Error al hacer la suma")
+                    return False
+            else:
+                print("Error al hacer la suma")
+                return False
+        elif expresion[i] == '-':
+            print("Ha encontrado resta")
+            cont = i - 1
+            # Busca el número
+            while cont > pos_ini and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num1 = float(expresion[cont])
+                    print(num1)
+                    expresion[cont] = ''
+                else:
+                    cont -= 1
+            encontrado = False
+            cont = i + 1
+            while cont < pos_fin and not encontrado:
+                if re.match(numero, expresion[cont]):
+                    encontrado = True
+                    num2 = float(expresion[cont])
+                    print(num2)
+                    expresion[cont] = ''
+                else:
+                    cont += 1
+            if num1 and num2 and num1 != '' and num2 != '':
+                result = client.resta(num1, num2)
+                if result or result != '':
+                    expresion[i] = str(result)
+                else:
+                    print("Error al hacer la division")
+                    return False
+            else:
+                print("Error al hacer la resta")
+                return False
+        i += 1
+    # Limpiar info['cadena'] eliminamos los espacios vacíos
+    print(info['cadena'])
+    info['cadena'] = [x for x in expresion if x != '']
+    print(info['cadena'])
 
     return True
 

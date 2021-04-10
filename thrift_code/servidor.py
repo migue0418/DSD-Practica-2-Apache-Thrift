@@ -49,29 +49,28 @@ class CalculadoraHandler:
 
     def sen(self, n1):
         print("seno de " + str(n1))
-        print(sin(n1))
-        return sin(n1)
+        return sin(radians(n1))
 
     def arc_sen(self, n1):
         print("arcoseno de " + str(n1))
-        print(asin(n1))
-        return asin(n1)
+        print(radians(n1))
+        return asin(radians(n1))
 
     def cos(self, n1):
         print("coseno de " + str(n1))
-        return cos(n1)
+        return cos(radians(n1))
 
     def arc_cos(self, n1):
         print("arcocoseno de " + str(n1))
-        return acos(n1)
+        return acos(radians(n1))
 
     def tan(self, n1):
         print("tangente de " + str(n1))
-        return tan(n1)
+        return tan(radians(n1))
 
     def arc_tan(self, n1):
         print("arcotangente de " + str(n1))
-        return atan(n1)
+        return atan(radians(n1))
 
 
 def main():

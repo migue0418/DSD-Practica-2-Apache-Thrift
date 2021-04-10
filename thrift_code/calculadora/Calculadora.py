@@ -833,8 +833,8 @@ class suma_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
-    (2, TType.I32, 'num2', None, None, ), # 2
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
+    (2, TType.DOUBLE, 'num2', None, None, ), # 2
   )
 
   def __init__(self, num1=None, num2=None,):
@@ -851,13 +851,13 @@ class suma_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.I32:
-          self.num2 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num2 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -871,12 +871,12 @@ class suma_args:
       return
     oprot.writeStructBegin('suma_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     if self.num2 is not None:
-      oprot.writeFieldBegin('num2', TType.I32, 2)
-      oprot.writeI32(self.num2)
+      oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+      oprot.writeDouble(self.num2)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -903,7 +903,7 @@ class suma_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -919,8 +919,8 @@ class suma_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -934,8 +934,8 @@ class suma_result:
       return
     oprot.writeStructBegin('suma_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -964,8 +964,8 @@ class resta_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
-    (2, TType.I32, 'num2', None, None, ), # 2
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
+    (2, TType.DOUBLE, 'num2', None, None, ), # 2
   )
 
   def __init__(self, num1=None, num2=None,):
@@ -982,13 +982,13 @@ class resta_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.I32:
-          self.num2 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num2 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1002,12 +1002,12 @@ class resta_args:
       return
     oprot.writeStructBegin('resta_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     if self.num2 is not None:
-      oprot.writeFieldBegin('num2', TType.I32, 2)
-      oprot.writeI32(self.num2)
+      oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+      oprot.writeDouble(self.num2)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1034,7 +1034,7 @@ class resta_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1050,8 +1050,8 @@ class resta_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1065,8 +1065,8 @@ class resta_result:
       return
     oprot.writeStructBegin('resta_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1095,8 +1095,8 @@ class multiplicacion_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
-    (2, TType.I32, 'num2', None, None, ), # 2
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
+    (2, TType.DOUBLE, 'num2', None, None, ), # 2
   )
 
   def __init__(self, num1=None, num2=None,):
@@ -1113,13 +1113,13 @@ class multiplicacion_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.I32:
-          self.num2 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num2 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1133,12 +1133,12 @@ class multiplicacion_args:
       return
     oprot.writeStructBegin('multiplicacion_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     if self.num2 is not None:
-      oprot.writeFieldBegin('num2', TType.I32, 2)
-      oprot.writeI32(self.num2)
+      oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+      oprot.writeDouble(self.num2)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1165,7 +1165,7 @@ class multiplicacion_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1181,8 +1181,8 @@ class multiplicacion_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1196,8 +1196,8 @@ class multiplicacion_result:
       return
     oprot.writeStructBegin('multiplicacion_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1226,8 +1226,8 @@ class division_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
-    (2, TType.I32, 'num2', None, None, ), # 2
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
+    (2, TType.DOUBLE, 'num2', None, None, ), # 2
   )
 
   def __init__(self, num1=None, num2=None,):
@@ -1244,13 +1244,13 @@ class division_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.I32:
-          self.num2 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num2 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1264,12 +1264,12 @@ class division_args:
       return
     oprot.writeStructBegin('division_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     if self.num2 is not None:
-      oprot.writeFieldBegin('num2', TType.I32, 2)
-      oprot.writeI32(self.num2)
+      oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+      oprot.writeDouble(self.num2)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1296,7 +1296,7 @@ class division_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1312,8 +1312,8 @@ class division_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1327,8 +1327,8 @@ class division_result:
       return
     oprot.writeStructBegin('division_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1357,8 +1357,8 @@ class potencia_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
-    (2, TType.I32, 'num2', None, None, ), # 2
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
+    (2, TType.DOUBLE, 'num2', None, None, ), # 2
   )
 
   def __init__(self, num1=None, num2=None,):
@@ -1375,13 +1375,13 @@ class potencia_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.I32:
-          self.num2 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num2 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1395,12 +1395,12 @@ class potencia_args:
       return
     oprot.writeStructBegin('potencia_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     if self.num2 is not None:
-      oprot.writeFieldBegin('num2', TType.I32, 2)
-      oprot.writeI32(self.num2)
+      oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+      oprot.writeDouble(self.num2)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1427,7 +1427,7 @@ class potencia_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1443,8 +1443,8 @@ class potencia_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1458,8 +1458,8 @@ class potencia_result:
       return
     oprot.writeStructBegin('potencia_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1487,7 +1487,7 @@ class raiz_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -1503,8 +1503,8 @@ class raiz_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1518,8 +1518,8 @@ class raiz_args:
       return
     oprot.writeStructBegin('raiz_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1546,7 +1546,7 @@ class raiz_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1562,8 +1562,8 @@ class raiz_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1577,8 +1577,8 @@ class raiz_result:
       return
     oprot.writeStructBegin('raiz_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1606,7 +1606,7 @@ class factorial_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -1622,8 +1622,8 @@ class factorial_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1637,8 +1637,8 @@ class factorial_args:
       return
     oprot.writeStructBegin('factorial_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1665,7 +1665,7 @@ class factorial_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1681,8 +1681,8 @@ class factorial_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1696,8 +1696,8 @@ class factorial_result:
       return
     oprot.writeStructBegin('factorial_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1725,7 +1725,7 @@ class sen_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -1741,8 +1741,8 @@ class sen_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1756,8 +1756,8 @@ class sen_args:
       return
     oprot.writeStructBegin('sen_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1784,7 +1784,7 @@ class sen_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1800,8 +1800,8 @@ class sen_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1815,8 +1815,8 @@ class sen_result:
       return
     oprot.writeStructBegin('sen_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1844,7 +1844,7 @@ class arc_sen_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -1860,8 +1860,8 @@ class arc_sen_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1875,8 +1875,8 @@ class arc_sen_args:
       return
     oprot.writeStructBegin('arc_sen_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1903,7 +1903,7 @@ class arc_sen_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -1919,8 +1919,8 @@ class arc_sen_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1934,8 +1934,8 @@ class arc_sen_result:
       return
     oprot.writeStructBegin('arc_sen_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -1963,7 +1963,7 @@ class cos_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -1979,8 +1979,8 @@ class cos_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -1994,8 +1994,8 @@ class cos_args:
       return
     oprot.writeStructBegin('cos_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2022,7 +2022,7 @@ class cos_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -2038,8 +2038,8 @@ class cos_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2053,8 +2053,8 @@ class cos_result:
       return
     oprot.writeStructBegin('cos_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2082,7 +2082,7 @@ class arc_cos_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -2098,8 +2098,8 @@ class arc_cos_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2113,8 +2113,8 @@ class arc_cos_args:
       return
     oprot.writeStructBegin('arc_cos_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2141,7 +2141,7 @@ class arc_cos_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -2157,8 +2157,8 @@ class arc_cos_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2172,8 +2172,8 @@ class arc_cos_result:
       return
     oprot.writeStructBegin('arc_cos_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2201,7 +2201,7 @@ class tan_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -2217,8 +2217,8 @@ class tan_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2232,8 +2232,8 @@ class tan_args:
       return
     oprot.writeStructBegin('tan_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2260,7 +2260,7 @@ class tan_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -2276,8 +2276,8 @@ class tan_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2291,8 +2291,8 @@ class tan_result:
       return
     oprot.writeStructBegin('tan_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2320,7 +2320,7 @@ class arc_tan_args:
 
   thrift_spec = (
     None, # 0
-    (1, TType.I32, 'num1', None, None, ), # 1
+    (1, TType.DOUBLE, 'num1', None, None, ), # 1
   )
 
   def __init__(self, num1=None,):
@@ -2336,8 +2336,8 @@ class arc_tan_args:
       if ftype == TType.STOP:
         break
       if fid == 1:
-        if ftype == TType.I32:
-          self.num1 = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.num1 = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2351,8 +2351,8 @@ class arc_tan_args:
       return
     oprot.writeStructBegin('arc_tan_args')
     if self.num1 is not None:
-      oprot.writeFieldBegin('num1', TType.I32, 1)
-      oprot.writeI32(self.num1)
+      oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+      oprot.writeDouble(self.num1)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2379,7 +2379,7 @@ class arc_tan_result:
   """
 
   thrift_spec = (
-    (0, TType.I32, 'success', None, None, ), # 0
+    (0, TType.DOUBLE, 'success', None, None, ), # 0
   )
 
   def __init__(self, success=None,):
@@ -2395,8 +2395,8 @@ class arc_tan_result:
       if ftype == TType.STOP:
         break
       if fid == 0:
-        if ftype == TType.I32:
-          self.success = iprot.readI32();
+        if ftype == TType.DOUBLE:
+          self.success = iprot.readDouble();
         else:
           iprot.skip(ftype)
       else:
@@ -2410,8 +2410,8 @@ class arc_tan_result:
       return
     oprot.writeStructBegin('arc_tan_result')
     if self.success is not None:
-      oprot.writeFieldBegin('success', TType.I32, 0)
-      oprot.writeI32(self.success)
+      oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+      oprot.writeDouble(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
