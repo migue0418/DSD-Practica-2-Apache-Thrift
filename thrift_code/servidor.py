@@ -5,6 +5,8 @@ from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 
+from math import *
+
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -32,6 +34,42 @@ class CalculadoraHandler:
     def division(self, n1, n2):
         print("dividiendo " + str(n1) + " con " + str(n2))
         return n1 / n2
+
+    def potencia(self, n1, n2):
+        print("potencia de " + str(n1) + " elevado a " + str(n2))
+        return pow(n1, n2)
+
+    def raiz(self, n1):
+        print("raiz de " + str(n1))
+        return sqrt(n1)
+
+    def factorial(self, n1):
+        print("factorial de " + str(n1))
+        return factorial(n1)
+
+    def sen(self, n1):
+        print("seno de " + str(n1))
+        return sin(n1)
+
+    def arc_sen(self, n1):
+        print("arcoseno de " + str(n1))
+        return asin(n1)
+
+    def cos(self, n1):
+        print("coseno de " + str(n1))
+        return cos(n1)
+
+    def arc_cos(self, n1):
+        print("arcocoseno de " + str(n1))
+        return acos(n1)
+
+    def tan(self, n1):
+        print("tangente de " + str(n1))
+        return tan(n1)
+
+    def arc_tan(self, n1):
+        print("arcotangente de " + str(n1))
+        return atan(n1)
 
 
 def main():

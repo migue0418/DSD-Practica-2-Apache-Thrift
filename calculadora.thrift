@@ -1,0 +1,16 @@
+service Calculadora{
+   void ping(),
+   i32 suma(1:i32 num1, 2:i32 num2),
+   i32 resta(1:i32 num1, 2:i32 num2),
+   i32 multiplicacion(1:i32 num1, 2:i32 num2),
+   i32 division(1:i32 num1, 2:i32 num2),
+   i32 potencia(1:i32 num1, 2:i32 num2),
+   i32 raiz(1:i32 num1),
+   i32 factorial(1:i32 num1),
+   i32 sen(1:i32 num1),
+   i32 arc_sen(1:i32 num1),
+   i32 cos(1:i32 num1),
+   i32 arc_cos(1:i32 num1),
+   i32 tan(1:i32 num1),
+   i32 arc_tan(1:i32 num1),
+}

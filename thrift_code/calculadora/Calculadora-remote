@@ -10,10 +10,13 @@
 import sys
 import pprint
 from urlparse import urlparse
+from thrift.transport import TTransport
 from thrift.transport import TSocket
 from thrift.transport import THttpClient
+from thrift.protocol import TBinaryProtocol
 
-import Calculadora
+from calculadora import Calculadora
+from calculadora.ttypes import *
 
 if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print ''
@@ -25,6 +28,15 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  i32 resta(i32 num1, i32 num2)'
   print '  i32 multiplicacion(i32 num1, i32 num2)'
   print '  i32 division(i32 num1, i32 num2)'
+  print '  i32 potencia(i32 num1, i32 num2)'
+  print '  i32 raiz(i32 num1)'
+  print '  i32 factorial(i32 num1)'
+  print '  i32 sen(i32 num1)'
+  print '  i32 arc_sen(i32 num1)'
+  print '  i32 cos(i32 num1)'
+  print '  i32 arc_cos(i32 num1)'
+  print '  i32 tan(i32 num1)'
+  print '  i32 arc_tan(i32 num1)'
   print ''
   sys.exit(0)
 
@@ -105,6 +117,60 @@ elif cmd == 'division':
     print 'division requires 2 args'
     sys.exit(1)
   pp.pprint(client.division(eval(args[0]),eval(args[1]),))
+
+elif cmd == 'potencia':
+  if len(args) != 2:
+    print 'potencia requires 2 args'
+    sys.exit(1)
+  pp.pprint(client.potencia(eval(args[0]),eval(args[1]),))
+
+elif cmd == 'raiz':
+  if len(args) != 1:
+    print 'raiz requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.raiz(eval(args[0]),))
+
+elif cmd == 'factorial':
+  if len(args) != 1:
+    print 'factorial requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.factorial(eval(args[0]),))
+
+elif cmd == 'sen':
+  if len(args) != 1:
+    print 'sen requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.sen(eval(args[0]),))
+
+elif cmd == 'arc_sen':
+  if len(args) != 1:
+    print 'arc_sen requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.arc_sen(eval(args[0]),))
+
+elif cmd == 'cos':
+  if len(args) != 1:
+    print 'cos requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.cos(eval(args[0]),))
+
+elif cmd == 'arc_cos':
+  if len(args) != 1:
+    print 'arc_cos requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.arc_cos(eval(args[0]),))
+
+elif cmd == 'tan':
+  if len(args) != 1:
+    print 'tan requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.tan(eval(args[0]),))
+
+elif cmd == 'arc_tan':
+  if len(args) != 1:
+    print 'arc_tan requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.arc_tan(eval(args[0]),))
 
 else:
   print 'Unrecognized method %s' % cmd
