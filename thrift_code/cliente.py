@@ -20,6 +20,41 @@ def procesa_expresion(info, client):
     else:
         print("La expresión ha sido procesada y es válida:")
         print(info['cadena'])
+        # Comprobar si hay paréntesis para hacerlos primero
+        encontrado_parentesis = True
+        while(encontrado_parentesis):
+            encontrado_parentesis = False
+            pos_fin = len(info['cadena'])
+            expresion = info['cadena']
+            print("Busca parentesis en: ")
+            print(expresion)
+            i = 0
+            while i < pos_fin and not encontrado_parentesis:
+                if expresion[i] == ')':
+                    print("Encuentra parentesis en")
+                    print(i)
+                    paren_cerrado = i
+                    encontrado_parentesis = True
+                    i = paren_cerrado
+                else:
+                    i += 1
+
+            if encontrado_parentesis and paren_cerrado:
+                print("Va a buscar abierto")
+                encontrado_parentesis = False
+                while i >= 0 and not encontrado_parentesis:
+                    if expresion[i] == '(':
+                        paren_abierto = i
+                        encontrado_parentesis = True
+                    else:
+                        i -= 1
+
+            if encontrado_parentesis:
+                info['cadena'][paren_abierto] = ''
+                info['cadena'][paren_cerrado] = ''
+                print("Entra en resolver parentesis")
+                resolver_parentesis(info, paren_abierto, paren_cerrado, client)
+
         resolver_parentesis(info, -1, len(info['cadena']), client)
         if len(info['cadena']) == 1:
             info['resultado'] = info['cadena'][0]
@@ -160,20 +195,18 @@ def limpiar_cadena(expresion):
 
 
 def resolver_parentesis(info, pos_ini, pos_fin, client):
-    numero = re.compile('(-?\d+\.?\d*)')
+    print(info['cadena'])
     expresion = info['cadena']
+    numero = re.compile('(-?\d+\.?\d*)')
 
     # Raíces, Factoriales, Potencias y Trigonometría se resuelven primero
     i = pos_ini + 1
     while i < pos_fin:
-        print("Posicion " + str(i))
-        print(expresion[i])
         encontrado = False
         num1 = num2 = None
         result = ''
         # Raíz
         if expresion[i] == 'r':
-            print("Ha encontrado raiz")
             cont = i+1
             # Busca el número
             while cont < pos_fin and not encontrado:
@@ -223,7 +256,6 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
 
         # asin, acos, atan
         elif expresion[i] == 'asin' or expresion[i] == 'acos' or expresion[i] == 'atan':
-            print("Ha encontrado asin, acos, atan")
             cont = i + 1
             while cont < pos_fin and not encontrado:
                 if re.match(numero, expresion[cont]):
@@ -251,7 +283,6 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
 
         # Factorial
         elif expresion[i] == '!':
-            print("Ha encontrado factorial")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
@@ -279,14 +310,12 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
         encontrado = False
         num1 = num2 = None
         if expresion[i] == '^':
-            print("Ha encontrado potencia")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
                     expresion[cont] = ''
                 else:
                     cont -= 1
@@ -296,11 +325,10 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num2 = float(expresion[cont])
-                    print(num2)
                     expresion[cont] = ''
                 else:
                     cont += 1
-            if num1 and num2 and num1 != '' and num2 != '':
+            if num1 != '' and num2 != '':
                 result = client.potencia(num1, num2)
                 if result or result != '':
                     expresion[i] = str(result)
@@ -318,14 +346,12 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
         encontrado = False
         num1 = num2 = None
         if expresion[i] == 'x':
-            print("Ha encontrado multiplicacion")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
                     expresion[cont] = ''
                 else:
                     cont -= 1
@@ -335,11 +361,10 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num2 = float(expresion[cont])
-                    print(num2)
                     expresion[cont] = ''
                 else:
                     cont += 1
-            if num1 and num2 and num1 != '' and num2 != '':
+            if num1 != '' and num2 != '':
                 result = client.multiplicacion(num1, num2)
                 if result or result != '':
                     expresion[i] = str(result)
@@ -350,14 +375,12 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 print("Error al hacer la multiplicacion")
                 return False
         elif expresion[i] == '/':
-            print("Ha encontrado division")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
                     expresion[cont] = ''
                 else:
                     cont -= 1
@@ -367,11 +390,10 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num2 = float(expresion[cont])
-                    print(num2)
                     expresion[cont] = ''
                 else:
                     cont += 1
-            if num1 and num2 and num1 != '' and num2 != '':
+            if num1 != '' and num2 != '':
                 if num2 != 0:
                     result = client.division(num1, num2)
                     if result or result != '':
@@ -394,14 +416,12 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
         encontrado = False
         num1 = num2 = None
         if expresion[i] == '+':
-            print("Ha encontrado suma")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
                     expresion[cont] = ''
                 else:
                     cont -= 1
@@ -411,11 +431,10 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num2 = float(expresion[cont])
-                    print(num2)
                     expresion[cont] = ''
                 else:
                     cont += 1
-            if num1 and num2 and num1 != '' and num2 != '':
+            if num1 != '' and num2 != '':
                 result = client.suma(num1, num2)
                 if result or result != '':
                     expresion[i] = str(result)
@@ -426,14 +445,12 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 print("Error al hacer la suma")
                 return False
         elif expresion[i] == '-':
-            print("Ha encontrado resta")
             cont = i - 1
             # Busca el número
             while cont > pos_ini and not encontrado:
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num1 = float(expresion[cont])
-                    print(num1)
                     expresion[cont] = ''
                 else:
                     cont -= 1
@@ -443,11 +460,10 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 if re.match(numero, expresion[cont]):
                     encontrado = True
                     num2 = float(expresion[cont])
-                    print(num2)
                     expresion[cont] = ''
                 else:
                     cont += 1
-            if num1 and num2 and num1 != '' and num2 != '':
+            if num1 != '' and num2 != '':
                 result = client.resta(num1, num2)
                 if result or result != '':
                     expresion[i] = str(result)
@@ -459,7 +475,7 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                 return False
         i += 1
     # Limpiar info['cadena'] eliminamos los espacios vacíos
-    print(info['cadena'])
+    print("Ha terminado, limpia expresion")
     info['cadena'] = [x for x in expresion if x != '']
     print(info['cadena'])
 
