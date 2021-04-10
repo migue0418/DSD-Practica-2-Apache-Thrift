@@ -49,10 +49,12 @@ class CalculadoraHandler:
 
     def sen(self, n1):
         print("seno de " + str(n1))
+        print(sin(n1))
         return sin(n1)
 
     def arc_sen(self, n1):
         print("arcoseno de " + str(n1))
+        print(asin(n1))
         return asin(n1)
 
     def cos(self, n1):
