@@ -35,6 +35,11 @@ h2 {
     color: var(--teclas-gris);
 }
 
+footer p {
+    color: var(--calculadora);
+    font-size: 1.3rem;
+}
+
 header {
     margin-bottom: 40px;
 }
