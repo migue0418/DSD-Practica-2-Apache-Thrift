@@ -56,10 +56,19 @@ def procesa_expresion(info, client):
                 resolver_parentesis(info, paren_abierto, paren_cerrado, client)
 
         resolver_parentesis(info, -1, len(info['cadena']), client)
+
+        if info['error']:
+            print("Ha habido un error")
+            info['resultado'] = ''
+            return False
+
         if len(info['cadena']) == 1:
             info['resultado'] = info['cadena'][0]
         else:
+            info['resultado'] = ''
+            info['error'] = 'ERROR!'
             print("Error al poner el resultado")
+            return False
 
     print("\nEl resultado de procesar la expresión es: " + str(info['resultado']))
     return True
@@ -224,7 +233,7 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                     print("Error al hacer la raiz")
                     return False
             else:
-                info['Error'] = 'ERROR! No se puede hacer una raíz de un número negativo!'
+                info['error'] = 'ERROR! No se puede hacer una raíz de un número negativo!'
                 return False
 
         # sin, cos, tan
@@ -291,7 +300,7 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                     num1 = float(expresion[cont])
                 else:
                     cont -= 1
-            if num1 >= 0 and num1 and num1 != '':
+            if num1 >= 0 and num1 != '':
                 result = client.factorial(num1)
                 if result or result != '':
                     expresion[i] = str(result)
@@ -300,7 +309,7 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                     print("Error al hacer la potencia")
                     return False
             else:
-                info['Error'] = 'ERROR! No se puede hacer el factorial de un número negativo!'
+                info['error'] = 'ERROR! No se puede hacer el factorial de un número negativo!'
                 return False
         i += 1
 
@@ -402,7 +411,8 @@ def resolver_parentesis(info, pos_ini, pos_fin, client):
                         print("Error al hacer la division")
                         return False
                 else:
-                    info['Error'] = 'ERROR! No se puede dividir por 0!'
+                    print("ERROR!! No se puede dividir por 0")
+                    info['error'] = 'ERROR! No se puede dividir por 0!'
                     return False
             else:
                 print("Error al hacer la division")
